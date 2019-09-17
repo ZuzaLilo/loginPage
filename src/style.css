@@ -1,0 +1,17 @@
+html,body{
+height: 100%;
+font-family: 'Numans', sans-serif;
+background-color: rgb(230, 230, 230);
+}
+
+.container{
+height: 100%;
+align-content: center;
+}
+
+.card{
+margin-top: auto;
+margin-bottom: auto;
+background-color: white;
+}
+
