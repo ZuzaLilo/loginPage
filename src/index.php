@@ -1,21 +1,11 @@
 <?php
 
-session_start();
+//Bot or not? ReCaptcha
+$secret = "6LdK2rgUAAAAAAT0wVBv45UP8UD0uLHyjJm2pdUK";
+		
+$checkBot = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
 
-
-    //Bot or not? ReCaptcha
-    $secret = "6LdK2rgUAAAAAAT0wVBv45UP8UD0uLHyjJm2pdUK";
-                
-    $checkBot = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
-
-    $result = json_decode($checkBot);
-
-    if ($result->success==false)
-        {
-            $everythinOk=false;
-            $_SESSION['e_bot']="Prove you are human!";
-        }
-
+$result = json_decode($checkBot);
 
 ?>
 
@@ -67,15 +57,6 @@ session_start();
                     <!-- ReCaptcha -->
                     <div class="form-group g-recaptcha" data-sitekey="6LdK2rgUAAAAAOMUuU6-IEbNPqL56mN_Rn9AH4YN"></div>
                     
-                        <!-- error message for reCaptcha -->
-                        <?php
-                            if (isset($_SESSION['e_bot']))
-                            {
-                                echo '<div class="error">'.$_SESSION['e_bot'].'</div>';
-                                unset($_SESSION['e_bot']);
-                            }
-                        ?>	
-
                     <!-- Submit button -->
                     <button type="submit" class="btn btn-primary">Register</button>    
                         
