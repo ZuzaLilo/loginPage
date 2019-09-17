@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 //connect to a database connection file
 $connection = require_once('./connect.php');
 
@@ -19,6 +21,10 @@ $connection = require_once('./connect.php');
     $email = $_POST['email'];
     $password = $_POST['password'];
 
+    $_SESSION["username"] = "$username";
+    $_SESSION["email"] = "$email";
+    $_SESSION["password"] = "$password";
+    
 
     //put the data into the database
     try
@@ -73,6 +79,8 @@ $connection = require_once('./connect.php');
 			<div class="card-body">
 
             <h1>Hello, <?php echo $username ?>!</h1>
+
+            <a href="login.php" class="btn btn-secondary" name="log_out_button" >Log out</a>
 
 			</div>
 		</div>

@@ -3,20 +3,6 @@
 session_start();
 
 
-    //Bot or not? ReCaptcha
-    $secret = "6LdK2rgUAAAAAAT0wVBv45UP8UD0uLHyjJm2pdUK";
-                
-    $checkBot = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
-
-    $result = json_decode($checkBot);
-
-    if ($result->success==false)
-        {
-            $everythinOk=false;
-            $_SESSION['e_bot']="Prove you are human!";
-        }
-
-
 ?>
 
 
@@ -28,9 +14,9 @@ session_start();
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title>Register</title>
+<title>Login</title>
 
-<meta name="description" content="Registration">
+<meta name="description" content="Login">
 
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous" />
@@ -52,32 +38,14 @@ session_start();
                         <input type="text" class="form-control" name=username id="formGroupExampleInput" placeholder="Username">
                     </div>
 
-                    <!-- Email -->
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email</label>
-                        <input type="email" class="form-control" name=email id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
-                    </div>
-
                     <!-- Password -->
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
                         <input type="password" class="form-control" name=password id="exampleInputPassword1" placeholder="Password">
                     </div>
-
-                    <!-- ReCaptcha -->
-                    <div class="form-group g-recaptcha" data-sitekey="6LdK2rgUAAAAAOMUuU6-IEbNPqL56mN_Rn9AH4YN"></div>
                     
-                        <!-- error message for reCaptcha -->
-                        <?php
-                            if (isset($_SESSION['e_bot']))
-                            {
-                                echo '<div class="error">'.$_SESSION['e_bot'].'</div>';
-                                unset($_SESSION['e_bot']);
-                            }
-                        ?>	
-
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary">Register</button>    
+                    <button type="submit" class="btn btn-primary">Log in</button>    
                         
 				</form>
 			</div>
@@ -89,11 +57,6 @@ session_start();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script>
 
-<script type="text/javascript">
-    DeBounce_APIKEY = 'YOUR_PUBLIC_API_KEY_HERE';
-    DeBounce_BlockFreeEmails = 'false'; //Set this value true to block free emails like Gmail.
-</script>
-<script async type="text/javascript" src="https://cdn.debounce.io/widget/DeBounce.js"></script>
 
 </body>
 </html>
