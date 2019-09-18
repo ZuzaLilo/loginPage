@@ -12,7 +12,7 @@
         $everythingOk = true;
 
         //Bot or not? ReCaptcha
-        $secret = "6LdK2rgUAAAAAAT0wVBv45UP8UD0uLHyjJm2pdUK";
+        $secret = "SECRET KEY";
                 
         $checkBot = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
 
