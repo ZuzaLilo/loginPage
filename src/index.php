@@ -1,7 +1,7 @@
 <?php
 
 //Bot or not? ReCaptcha
-$secret = "6LdK2rgUAAAAAAT0wVBv45UP8UD0uLHyjJm2pdUK";
+$secret = "SECRET KEY";
 		
 $checkBot = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
 
@@ -34,7 +34,7 @@ $result = json_decode($checkBot);
 	<div class="d-flex justify-content-center h-100"> 
 		<div class="card">
 			<div class="card-body">
-				<form action="logged_in.php" method="post">
+				<form action="login.php" method="post">
 
 					<!-- Username -->
                     <div class="form-group">
