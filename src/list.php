@@ -94,6 +94,10 @@ $users = $usersQuery->fetchAll();
                     ?>
                 </tbody>
                 </table>
+
+                <!-- Logout button -->
+                <a href="logout.php" class="btn btn-secondary" name="logout_button" >Log out</a>
+
 			</div>
 		</div>
 	</div>
