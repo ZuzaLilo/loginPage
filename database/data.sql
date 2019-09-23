@@ -34,8 +34,11 @@ CREATE TABLE `user_table` (
 --
 
 INSERT INTO `user_table` (`id`, `username`, `email`, `password`) VALUES
-(1, 'x', 'x@xmail.com', 'xyz'),
-(2, 'boo', 'b@bmail.com', 'qwerty');
+(1, 'user1', 'user1@mail.com', 'qwerty'),
+(2, 'myusername', 'my@mail.com', 'mypassword'),
+(3, 'yourusername', 'your@mail.com', 'yourpassword'),
+(4, 'herusername', 'her@mail.com', 'herpassword'),
+(5, 'xyzUsername', 'xyz@xmail.com', 'xyzUsername');
 
 --
 -- Indexes for dumped tables
@@ -55,5 +58,5 @@ ALTER TABLE `user_table`
 -- AUTO_INCREMENT for table `user_table`
 --
 ALTER TABLE `user_table`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 COMMIT;
