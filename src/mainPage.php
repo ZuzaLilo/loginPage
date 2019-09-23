@@ -33,13 +33,13 @@ if (!isset($_SESSION['logged_id'])){
         {
             //print out the message about wrong login or password and exit
             $_SESSION['bad_attempt'] = true;
-            header('Location: admin.php');
+            header('Location: login.php');
             exit();
         }
 
     }
     else{
-        header('Location: admin.php');
+        header('Location: index.php');
         exit();
     }
 }

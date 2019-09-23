@@ -36,7 +36,7 @@ if(isset($_POST['email']))
         $query->execute();
 
         //let me know it worked
-        echo "New record created successfully";
+        header('Location: login.php');
     }
 }
 else
