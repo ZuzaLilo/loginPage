@@ -69,7 +69,13 @@ $result = json_decode($checkBot);
                     <div class="form-group g-recaptcha" data-sitekey="6LdK2rgUAAAAAOMUuU6-IEbNPqL56mN_Rn9AH4YN"></div>
                     
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary">Register</button>    
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Register</button>   
+                    </div>
+
+                    <div class="form-group">
+                    <a href="login.php">Already have an account?</a> 
+                    </div>
 
 				</form>
 			</div>
