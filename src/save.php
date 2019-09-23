@@ -2,8 +2,6 @@
 
 session_start();
 
-//database connection file
-require_once('./connect.php');
 
 if(isset($_POST['email']))
 {
@@ -17,8 +15,13 @@ if(isset($_POST['email']))
     }
     else
     {
+        //database connection file
+        require_once('./connect.php'); 
+        
         //if the given email is correct, put in database
-        echo $_POST['email'].$email;
+        $query = $connection->prepare('INSERT INTO user_table VALUES (NULL, :email)');
+        $query->bindValue(':email'.$email, PDO::PARAM_STR);
+        $query->execute();
     }
 }
 else
