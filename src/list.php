@@ -30,6 +30,7 @@ if (!isset($_SESSION['logged_id'])){
         }
         else
         {
+            //print out the message about wrong login or password and exit
             $_SESSION['bad_attempt'] = true;
             header('Location: admin.php');
             exit();

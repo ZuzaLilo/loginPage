@@ -1,14 +1,12 @@
 <?php
-
 session_start();
 
-//Bot or not? ReCaptcha
-$secret = "SECRET KEY";
-		
-$checkBot = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
-
-$result = json_decode($checkBot);
-
+//check if user is not logged in yet
+if (isset($_SESSION['logged_id']))
+{
+    header('Location: list.php');
+    exit();
+}
 ?>
 
 
@@ -24,12 +22,10 @@ $result = json_decode($checkBot);
 
 <meta name="description" content="Admin Login Page">
 
-<script src='https://www.google.com/recaptcha/api.js'></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous" />
 <link rel="stylesheet" href="style.css">
 
 </head>
-
 <body>
 
 <div class="container">
@@ -48,11 +44,17 @@ $result = json_decode($checkBot);
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
                         <input type="password" class="form-control" name=password id="exampleInputPassword1" placeholder="Password">
-                    </div>
+                    </div> 
 
-                    <!-- ReCaptcha -->
-                    <div class="form-group g-recaptcha" data-sitekey="6LdK2rgUAAAAAOMUuU6-IEbNPqL56mN_Rn9AH4YN"></div>
-                    
+                    <!-- Error message for incorrect login details -->
+                    <?php
+                    if(isset($_SESSION['bad_attempt']))
+                    {
+                        echo '<p>Wrong username or password!</p>';
+                        unset($_SESSION['bad_attempt']);
+                    }
+                    ?>
+
                     <!-- Submit button -->
                     <button type="submit" class="btn btn-primary">Submit</button>    
 
