@@ -2,61 +2,81 @@
 
 session_start();
 
-//database connection file
-require_once('./connect.php');
-
-if(isset($_POST['email']))
+//check if user is not logged in yet
+if (isset($_SESSION['logged_id']))
 {
-    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-
-    if(empty($email))
-    {}
-    else
-    {
-        echo $_POST['email'].$email;
-    }
-}
-else
-{
-    header('Location: index.php');
+    header('Location: mainPage.php');
     exit();
 }
-
-//get data from the form
-
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    $_SESSION["username"] = "$username";
-    $_SESSION["email"] = "$email";
-    $_SESSION["password"] = "$password";
-
-
-    
-
-    try
-    {
-        $connection = new PDO('mysql:host=database;dbname=mydb;charset=utf8mb4', 'myuser', 'secret', 
-        [
-            PDO::ATTR_EMULATE_PREPARES => false,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
-        
-        $stmt = $connection->prepare("SELECT * FROM user_table");
-        $stmt->execute();
-
-        // set the resulting array to associative
-        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        foreach($stmt->fetchAll()as $k=>$v) {
-            echo $v;
-        }
-    }
-    catch(PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    }
-
-    //close connection
-    $connection = null;
-
 ?>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Login</title>
+
+<meta name="description" content="Login">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<div class="container">
+	<div class="d-flex justify-content-center h-100"> 
+		<div class="card">
+			<div class="card-body">
+				<form action="mainPage.php" method="post">
+
+					<!-- Username -->
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Username</label>
+                        <input type="text" class="form-control" name=username id="formGroupExampleInput" placeholder="Username">
+                    </div>
+
+                    <!-- print error for invalid email address -->
+                    <?php
+                    if (isset($_SESSION['given_email']))
+                    {
+                        echo '<p>Not a valid email address!</p>';
+                        unset($_SESSION['given_email']);
+                    }
+                    ?>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" name=password id="exampleInputPassword1" placeholder="Password">
+                    </div>
+
+                    <!-- Error message for incorrect login details -->
+                    <?php
+                    if(isset($_SESSION['bad_attempt']))
+                    {
+                        echo '<p>Wrong username or password!</p>';
+                        unset($_SESSION['bad_attempt']);
+                    }
+                    ?>
+                    
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary">Log in</button>    
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
