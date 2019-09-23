@@ -3,7 +3,8 @@
 session_start();
 
 //connect to a database connection file
-$connection = require_once('./connect.php');
+require_once('./connect.php');
+
 
 
 //testing lines:

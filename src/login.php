@@ -5,6 +5,22 @@ session_start();
 //database connection file
 require_once('./connect.php');
 
+if(isset($_POST['email']))
+{
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+
+    if(empty($email))
+    {}
+    else
+    {
+        echo $_POST['email'].$email;
+    }
+}
+else
+{
+    header('Location: index.php');
+    exit();
+}
 
 //get data from the form
 
@@ -16,39 +32,23 @@ require_once('./connect.php');
     $_SESSION["email"] = "$email";
     $_SESSION["password"] = "$password";
 
-    echo "<table style='border: solid 1px black;'>";
-    echo "<tr><th>Id</th><th>Firstname</th><th>Lastname</th></tr>";
 
-    class TableRows extends RecursiveIteratorIterator {
-        function __construct($it) {
-            parent::__construct($it, self::LEAVES_ONLY);
-        }
-
-        function current() {
-            return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
-        }
-
-        function beginChildren() {
-            echo "<tr>";
-        }
-
-        function endChildren() {
-            echo "</tr>" . "\n";
-        }
-    }
-
+    
 
     try
     {
-        $connection = new PDO('mysql:host=database;dbname=mydb;charset=utf8mb4', 'myuser', 'secret');
-
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $connection = new PDO('mysql:host=database;dbname=mydb;charset=utf8mb4', 'myuser', 'secret', 
+        [
+            PDO::ATTR_EMULATE_PREPARES => false,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]);
+        
         $stmt = $connection->prepare("SELECT * FROM user_table");
         $stmt->execute();
 
         // set the resulting array to associative
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+        foreach($stmt->fetchAll()as $k=>$v) {
             echo $v;
         }
     }
